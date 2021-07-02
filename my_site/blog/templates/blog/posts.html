@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    Posts
+{% endblock  %}
+
+{% block content %}
+    {% include './includes/header.html' %}
+
+    <ul>
+        {% for post in posts %}
+            <li><a href="{% url 'post' post.title %}">{{ post.title|title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock  %}

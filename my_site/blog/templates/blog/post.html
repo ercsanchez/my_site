@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    {{ title|title }}
+{% endblock  %}
+
+{% block content %}
+    {% include './includes/header.html' %}
+    
+    <h1>title: {{ title|title }}</h1>
+    <h4>{{ username}}</h1>
+    <p>content: {{ content }}</p> 
+{% endblock  %}
+

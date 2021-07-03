@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}This Post Title{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/post-detail.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section id="summary">
+        <h2>Post Title</h2>
+        <article>
+            <img src="{% static 'blog/images/Mount-Kinabalu.jpeg' %}" alt="Post Title">
+            <address>By Ricky</address>
+            <div>
+                Last updated on <time>July 3</time>
+            </div>
+        </article>
+    </section>
+
+    <main>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae at ipsa 
+        nisi veritatis id! Delectus assumenda iure quod doloremque, deleniti odit 
+        dicta voluptate repellendus! Iusto voluptatem officia quidem nemo sit.
+        </p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae at ipsa 
+        nisi veritatis id! Delectus assumenda iure quod doloremque, deleniti odit 
+        dicta voluptate repellendus! Iusto voluptatem officia quidem nemo sit.
+        </p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae at ipsa 
+        nisi veritatis id! Delectus assumenda iure quod doloremque, deleniti odit 
+        dicta voluptate repellendus! Iusto voluptatem officia quidem nemo sit.
+        </p>
+    </main>
+{% endblock %}

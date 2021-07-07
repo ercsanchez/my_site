@@ -1,78 +1,13 @@
-from datetime import date
-
 from django.shortcuts import render
 
+from .models import Post
 
-all_posts = [
-    {
-        "slug": "hike-in-the-mountains",
-        "image": "Mount-Kinabalu.jpeg",
-        "author": "Ricky",
-        "date": date(2021, 7, 3),
-        "title": "Mountain Hiking",
-        "excerpt": "There's nothing like the views you get when hiking.",
-        "content": '''
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae 
-            at ipsa nisi veritatis id! Delectus assumenda iure quod doloremque, 
-            deleniti odit dicta voluptate repellendus! Iusto voluptatem officia 
-            quidem nemo sit.
-
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae 
-            at ipsa nisi veritatis id! Delectus assumenda iure quod doloremque, 
-            deleniti odit dicta voluptate repellendus! Iusto voluptatem officia 
-            quidem nemo sit.
-        '''
-    },
-    {
-        "slug": "this-is-post2",
-        "image": "Mount-Kinabalu.jpeg",
-        "author": "Ricky",
-        "date": date(2021, 1, 13),
-        "title": "Post2 title",
-        "excerpt": "This is excerpt for post 2.",
-        "content": '''
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae 
-            at ipsa nisi veritatis id! Delectus assumenda iure quod doloremque, 
-            deleniti odit dicta voluptate repellendus! Iusto voluptatem officia 
-            quidem nemo sit.
-
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae 
-            at ipsa nisi veritatis id! Delectus assumenda iure quod doloremque, 
-            deleniti odit dicta voluptate repellendus! Iusto voluptatem officia 
-            quidem nemo sit.
-        '''
-    },
-    {
-        "slug": "this-is-post3",
-        "image": "Mount-Kinabalu.jpeg",
-        "author": "Ricky",
-        "date": date(2021, 5, 28),
-        "title": "Post3 title",
-        "excerpt": "This is excerpt for post 3.",
-        "content": '''
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae 
-            at ipsa nisi veritatis id! Delectus assumenda iure quod doloremque, 
-            deleniti odit dicta voluptate repellendus! Iusto voluptatem officia 
-            quidem nemo sit.
-
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae 
-            at ipsa nisi veritatis id! Delectus assumenda iure quod doloremque, 
-            deleniti odit dicta voluptate repellendus! Iusto voluptatem officia 
-            quidem nemo sit.
-        '''
-    }
-]
-
-
-def get_date(post):
-    return post['date']
 
 # Create your views here.
 
 
 def starting_page(request):
-    sorted_posts = sorted(all_posts, key=get_date)
-    latest_posts = sorted_posts[-3:]
+    latest_posts = Post.objects.all().order_by('-date')[3:]
     return render(request, 'blog/index.html', {
         "posts": latest_posts
     })

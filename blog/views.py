@@ -1,3 +1,4 @@
+from django.forms.widgets import SplitDateTimeWidget
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -44,11 +45,11 @@ class SinglePostView(View):
         post = Post.objects.get(slug=slug)
 
         if comment_form.is_valid():
-            comment = comment_form.save(commit=False)  # creates a model instance but doesn't write to db yet
+            # creates a model instance but doesn't write to db yet
+            comment = comment_form.save(commit=False)
             comment.post = post
             comment.save()
-            return HttpResponseRedirect(reverse('post-detail-page', 
-                args=[slug]))
+            return HttpResponseRedirect(reverse('post-detail-page', args=[slug]))
 
         context = {
             'post': post,
@@ -60,5 +61,29 @@ class SinglePostView(View):
 
 
 class ReadLaterView(View):
+    def get(self, request):
+        stored_posts = request.session.get('stored_posts')
+        context = {}
+
+        if stored_posts is None or len(stored_posts) == 0:
+            context['posts'] = []
+            context['has_posts'] = False
+        else:
+            context['posts'] = Post.objects.filter(id__in=stored_posts)
+            context['has_posts'] = True
+
+        return render(request, 'blog/stored-posts.html', context)
+
     def post(self, request):
-        pass
+        stored_posts = request.session.get('stored_posts')
+
+        if stored_posts is None:
+            stored_posts = []
+
+        post_id = int(request.POST['post_id'])
+
+        if post_id not in stored_posts:
+            stored_posts.append(post_id)
+            request.session['stored_posts'] = stored_posts
+
+        return HttpResponseRedirect('/')

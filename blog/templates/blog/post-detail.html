@@ -28,4 +28,11 @@
     <main>
         <p>{{ post.content|linebreaks }}</p>
     </main>
+
+    <div>
+        <form action="">
+            {{ comment_form }}
+            <button>Save Comment</button>
+        </form>
+    </div>
 {% endblock %}
